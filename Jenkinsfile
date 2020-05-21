@@ -1,23 +1,18 @@
 pipeline {
-  agent any
-  tools {
-    gradle 'Default'
-  }
-  stages {
-    stage("Build") {
-      steps {
-        echo "building..."
-      }
+    agent any
+    stages {
+	    stage ('Clean Stage') {
+
+            steps {
+                withMaven(maven : 'apache-maven-3.6.1') {
+                    bat 'mvn clean compile'
+                }
+            }
+        }
+		stage ('Build Stage') {
+            steps {
+                 echo "Hello World!"
+                }
+        }
     }
-    stage("Test") {
-      steps {
-        echo "testing..."
-      }
-    }
-    stage("Package") {
-      steps {
-        echo "packaging..."
-      }
-    }
-  }
 }
